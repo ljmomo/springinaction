@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+	                    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+	                    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+		                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+	">
+
+	<!-- 既可以注入bean 也可 自动检测bean和定义bean -->
+	<context:component-scan base-package="com.springinaction.springidol">
+		<!-- <context:include-filter type="assignable" expression="com.springinaction.springidol.Performer"/> -->
+		<!-- <context:exclude-filter type="annotation" expression="com.springinaction.springidol.StringedInstrument"/> -->
+	</context:component-scan>
+	<!-- 使用注解自动注入bean -->
+	<!-- <context:annotation-config/> -->
+
+	<!-- <bean id="kenny" class="com.springinaction.springidol.Instrumentalist" 
+		> <property name="song" value="#{systemEnvironment['CLASSPATH']}"></property> 
+		</bean> <bean class="com.springinaction.springidol.Saxophone" /> <bean class="com.springinaction.springidol.Piano" 
+		> <qualifier value="piano"></qualifier> </bean> -->
+
+
+	<aop:config>
+		<aop:aspect ref="magician">
+			<aop:pointcut
+				expression="execution(* com.springinaction.springidol.Thinker.thinkOfSomething(String)) and args(thoughts)"
+				id="thinking" />
+			<aop:before method="interceptThoughts" arg-names="thoughts"
+				pointcut-ref="thinking" />
+		</aop:aspect>
+	</aop:config>
+
+
+</beans>

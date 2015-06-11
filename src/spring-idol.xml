@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	                    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"
+	                    default-autowire="byType"
+	                    >
+    
+	<!-- 构造方法 实例化对象 -->
+	<bean id="duke" class="com.springinaction.springidol.Juggler">
+		<constructor-arg value="#{T(java.lang.Math).random()}" />
+	</bean>
+	
+	<bean id="duke2" class="com.springinaction.springidol.Juggler" >
+		 <constructor-arg ref=""></constructor-arg>
+	</bean>
+	
+	<bean id="sonnet29" class="com.springinaction.springidol.Sonnet29" />
+
+	<bean id="poeticDuke" class="com.springinaction.springidol.PeoticJuggler">
+		<constructor-arg value="#{T(java.lang.Math).random()}"></constructor-arg>
+		<constructor-arg ref="sonnet29"></constructor-arg>
+	</bean>
+	<!-- 单利类的实例化factory-method -->
+	<bean id="theStage" class="com.springinaction.springidol.Stage"
+		factory-method="getInstance" />
+	<!-- scope 属性用来配置 bean 的作用域 singleton 在每一个spring容器中，一个Bean定义只有一个对象实例(默认) 
+		prototype 允许Bean的定义可以被实例化任意次（每次调用都创建一个实例） request 在一个http 请求中，每个Bean定义对应一个实例，该作用域仅在基于 
+		Web的Spring上下文（例如SpringMVC） 中才有效。 session 在一个HTTP Session 中，每个Bean定义对应一个实例，该作用域仅在基于 
+		Web的Spring上下文（例如SpringMVC） 中才有效 global-session 在一个全局HTTP Session，每个Bean定义对应一个实例。该作用域仅在Portlet上下文中才有效 -->
+	<bean id="ticket" class="com.springinaction.springidol.Ticket"
+		scope="prototype" />
+
+	<bean id="auditorium" class="com.springinaction.springidol.Auditorium"
+		init-method="turnOnLights" destroy-method="turnOffLights" />
+
+	<bean id="kenny" class="com.springinaction.springidol.Instrumentalist" autowire="byType">
+		<property name="song" value="#{systemEnvironment['CLASSPATH']}"></property>
+		 <property name="instrument">
+			<bean id="saxophone" class="com.springinaction.springidol.Saxophone" />
+		</property> 
+	</bean>
+
+
+     <bean id="instrument" class="com.springinaction.springidol.Saxophone"  />
+     <bean id="kenny2" class="com.springinaction.springidol.Instrumentalist" autowire="byType">
+		<property name="song" value="#{systemEnvironment['CLASSPATH']}"></property>
+		 <property name="instrument" ref="instrument">
+		</property> 
+	</bean>
+     
+     
+       <bean id="kenny3" class="com.springinaction.springidol.Instrumentalist" >
+         
+		<property name="song" value="#{systemEnvironment['CLASSPATH']}"></property>
+		 <property name="instrument" ref="instrument">
+		</property> 
+	</bean>
+     
+
+	<bean id="piano" class="com.springinaction.springidol.Piano" />
+
+	<bean id="guitar" class="com.springinaction.springidol.Guitar" />
+
+	<bean id="cymbal" class="com.springinaction.springidol.Cymbal" />
+
+	<bean id="harmonica" class="com.springinaction.springidol.Harmonica" />
+
+	<bean id="hank" class="com.springinaction.springidol.OneManBand">
+		<property name="instruments">
+			<list>
+				<ref bean="guitar" />
+				<ref bean="cymbal" />
+				<ref bean="harmonica" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+
+	
+</beans>
