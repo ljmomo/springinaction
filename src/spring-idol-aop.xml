@@ -31,6 +31,7 @@
 	
 	
 	<aop:config>
+	 <!-- 切面 -->
 	  <aop:aspect ref="audience">
 	   <!--  定义一个通用的切点-->   
 	     <aop:pointcut expression="execution(* com.springinaction.springidol.Performer.perform(..))" id="perfomance"/>
