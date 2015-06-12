@@ -25,10 +25,13 @@
 
 
 	<aop:config>
+	 <!-- 切面 -->
 		<aop:aspect ref="magician">
+		   <!-- 定义切点 -->
 			<aop:pointcut
 				expression="execution(* com.springinaction.springidol.Thinker.thinkOfSomething(String)) and args(thoughts)"
 				id="thinking" />
+				<!-- 定义通知 -->
 			<aop:before method="interceptThoughts" arg-names="thoughts"
 				pointcut-ref="thinking" />
 		</aop:aspect>

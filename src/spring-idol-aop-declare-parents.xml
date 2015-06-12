@@ -29,18 +29,22 @@
 	  <qualifier value="piano"></qualifier>
 	</bean>  -->
 	
-	
+	 <!--default-impl="com.springinaction.springidol.GraciousContestant"  --> 
 	<aop:config>
-	 <!-- 切面 -->
-	  <aop:aspect ref="audience">
-	   <!--  定义一个通用的切点-->   
-	     <aop:pointcut expression="execution(* com.springinaction.springidol.Performer.perform(..))" id="perfomance"/>
-	      <!--通知-->
-	     <aop:before method="takeSeats" pointcut-ref="perfomance"/>
-	     <aop:before method="turnOffCellPhones" pointcut-ref="perfomance"/>
-	     <aop:after-returning method="applaud" pointcut-ref="perfomance"/>
-	     <aop:after-throwing method="demandRefund" pointcut-ref="perfomance"/>
-	  </aop:aspect>
+	    <aop:aspect  >
+	       <!-- declare-parents 声明了切面所通知的Bean在他的对象层次中拥有新的父类
+	        types-matching  为哪一个类型指定
+	        implement-interface 那些类实现实现的接口   这里是Contestant接口
+	        default-impl 是用全限定类名来来显示指定实现接口的类 ，这里是GraciousContestant
+	        delegate-ref 和上面的一样只不过是引用Bean  本身是一个bean 可以被注入，被通知
+	        -->
+	       <aop:declare-parents 
+	        types-matching="com.springinaction.springidol.Performer+" 
+	        implement-interface="com.springinaction.springidol.Contestant" 
+	        delegate-ref="delegateContestant"
+	       />
+	     
+	    </aop:aspect>
 	</aop:config>
  
   
