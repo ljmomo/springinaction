@@ -6,14 +6,16 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Repository;
-@Repository("testJNDI")
+@Repository("sqlBaseDAO")
 public class BaseDAOImpl implements BaseDAO {
-	@Autowired()
+
+	@Resource
 	private JdbcTemplate jdbcTemplate;
+	
+
 	public void insert(Object obj) {
 
 	}
