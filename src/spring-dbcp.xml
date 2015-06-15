@@ -22,6 +22,21 @@
 		<property name="maxActive" value="30" />
 		<property name="maxIdle" value="5" />
 	</bean>
+	<!--  
+	    配置数据源  JDBC驱动的 两种
+	 org.springframework.jdbc.datasource.DriverManagerDataSource 每次返回一个新见的连接
+	 org.springframework.jdbc.datasource.SingleConnectionDataSource 每次返回同一个连接
+	  两者都没有提供连接池功能 没有其他配置项
+	-->
+	<bean id="dataSourceJDBC" class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/myhs?characterEncoding=utf-8" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+	
+	</bean>
+	
 	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource">

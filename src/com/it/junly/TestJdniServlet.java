@@ -1,6 +1,8 @@
 package com.it.junly;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,8 +35,14 @@ public class TestJdniServlet extends HttpServlet {
              
 		 ApplicationContext context = new ClassPathXmlApplicationContext("classpath:spring-jndi.xml");  
 		 BaseDAO  baseDAO  = (BaseDAO) context.getBean("sqlBaseDAO");
-		 String sql = "insert into user(username) values('lijun')";
-		 baseDAO.insert(sql);
+		// String sql = "insert into user(username) values('lijun')";
+		 String sql = "select * from SASTB_USERS";
+		 List<Map<String, Object>> list = baseDAO.select(sql);
+		 for (Map<String, Object> map : list) {
+			 System.out.println(map.get("username"));
+			 System.out.println(map.get("pass"));
+		}
+		// baseDAO.insert(sql);
 		 
 	}
 
