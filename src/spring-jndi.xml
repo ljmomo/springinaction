@@ -24,7 +24,8 @@
 		</property>
 	</bean>
 	
-	<!-- 
+	<!--   server.xml
+	  <GlobalNamingResources>下添加
 	
 	<Resource auth="Container" 
 	driverClassName="com.mysql.jdbc.Driver" 
@@ -33,6 +34,10 @@
 	url="jdbc:mysql://127.0.0.1:3306/myhs?useUnicode=true&amp;characterEncoding=UTF-8" 
 	username="root"/>
 	特别要注意url,username,password,driverClassName 的名字
+	
+	context.xml 
+	<Context>下添加
+	<ResourceLink global="jdbc/DbPool" name="jdbc/DbPool" type="javax.sql.DataSource"/>  
 	 -->
 	
 <!-- 	 这里是自定义的数据库基础操作类
